@@ -5,7 +5,9 @@ import com.vlungu.backend.birthday.entity.Birthday;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BirthdayServiceImpl implements BirthdayService{
@@ -21,16 +23,28 @@ public class BirthdayServiceImpl implements BirthdayService{
 
     @Override
     public Birthday findById(int theId) {
-        return null;
+        Optional<Birthday> ret = birthdayRepository.findById(theId);
+
+        if (ret.isPresent()) {
+            return ret.get();
+        } else {
+            throw new RuntimeException("Did not find employee id - " + theId);
+        }
     }
 
     @Override
-    public void save(Birthday theBirthday) {
-
+    public Birthday save(Birthday theBirthday) {
+        return birthdayRepository.save(theBirthday);
     }
 
     @Override
     public void deleteById(int theId) {
+        birthdayRepository.deleteById(theId);
+    }
+
+    @Override
+    public List<Birthday> findByDateIs(LocalDate date) {
+        return birthdayRepository.findByDateIs(date);
 
     }
 }

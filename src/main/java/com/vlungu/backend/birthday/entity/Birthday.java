@@ -2,10 +2,10 @@ package com.vlungu.backend.birthday.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
-@Table(name="birthday")
+@Table(name="birthdays")
 public class Birthday {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +20,7 @@ public class Birthday {
 
     @Temporal(TemporalType.DATE)
     @Column(name="birthday")
-    private Date birthday;
+    private LocalDate birthday;
 
     public int getId() {
         return id;
@@ -46,11 +46,11 @@ public class Birthday {
         this.lastName = lastName;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 
