@@ -47,4 +47,12 @@ public class BirthdayServiceImpl implements BirthdayService{
         return birthdayRepository.findByDateIs(date);
 
     }
+
+    @Override
+    public List<Birthday> findToday() {
+        LocalDate todayDate = java.time.LocalDate.now();
+        todayDate = todayDate.withYear(2000);
+
+        return birthdayRepository.findByDateIs(todayDate);
+    }
 }

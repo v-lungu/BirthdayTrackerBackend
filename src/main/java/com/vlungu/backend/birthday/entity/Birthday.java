@@ -63,4 +63,8 @@ public class Birthday {
                 ", birthday=" + birthday +
                 '}';
     }
+
+    public String emailFormat() {
+        return "- " + firstName + " " + lastName;
+    }
 }

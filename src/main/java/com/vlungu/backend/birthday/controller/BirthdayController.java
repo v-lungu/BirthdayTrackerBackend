@@ -36,16 +36,12 @@ public class BirthdayController {
     @PostMapping("/birthdays")
     public Birthday addBirthday(@RequestBody Birthday theBirthday) {
         theBirthday.setId(0);
-        Birthday dbBirthday = birthdayService.save(theBirthday);
-
-        return dbBirthday;
+        return birthdayService.save(theBirthday);
     }
 
     @PutMapping("/birthdays")
     public Birthday updateEmployee(@RequestBody Birthday theBirthday) {
-        Birthday dbBirthday = birthdayService.save(theBirthday);
-
-        return dbBirthday;
+        return birthdayService.save(theBirthday);
     }
 
     @DeleteMapping("/birthdays/{birthdayId}")
@@ -68,9 +64,6 @@ public class BirthdayController {
 
     @GetMapping("birthdays/today")
     public List<Birthday> findToday() {
-        LocalDate todayDate = java.time.LocalDate.now();
-        todayDate = todayDate.withYear(2000);
-
-        return birthdayService.findByDateIs(todayDate);
+        return birthdayService.findToday();
     }
 }

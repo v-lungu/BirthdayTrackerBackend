@@ -1,31 +1,30 @@
 package com.vlungu.backend.birthday.notification;
 
-import jakarta.annotation.PostConstruct;
+import com.vlungu.backend.birthday.entity.Birthday;
+import com.vlungu.backend.birthday.service.BirthdayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EmailServiceImpl implements EmailService {
 
     private JavaMailSender emailSender;
+    private BirthdayService birthdayService;
 
     @Autowired
     public EmailServiceImpl(JavaMailSender javaMailSender) {
         this.emailSender = javaMailSender;
     }
 
-    @PostConstruct
-    public void send(){
-        sendSimpleMessage("v.lungu@gmail.com", "v_lungu@hotmail.com", "test", "Hello There");
-    }
-
-
     @Override
-    public void sendSimpleMessage(
+    public void sendDailyBirthdays(
             String from, String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
+
         message.setFrom(from);
         message.setTo(to);
         message.setSubject(subject);
