@@ -17,4 +17,6 @@ public interface BirthdayService {
     List<Birthday> findByDateIs(LocalDate date);
 
     List<Birthday> findToday();
+
+    List<Birthday> findByUpcoming();
 }

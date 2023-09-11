@@ -66,4 +66,9 @@ public class BirthdayController {
     public List<Birthday> findToday() {
         return birthdayService.findToday();
     }
+
+    @GetMapping("birthdays/upcoming")
+    public List<Birthday> findByUpcoming() {
+        return birthdayService.findByUpcoming();
+    }
 }

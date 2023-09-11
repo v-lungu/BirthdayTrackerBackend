@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,5 +55,26 @@ public class BirthdayServiceImpl implements BirthdayService{
         todayDate = todayDate.withYear(2000);
 
         return birthdayRepository.findByDateIs(todayDate);
+    }
+
+    @Override
+    public List<Birthday> findByUpcoming() {
+        LocalDate todayDate = java.time.LocalDate.now();
+        todayDate = todayDate.withYear(2000);
+        LocalDate upcomingDate = todayDate.plusDays(30);
+
+        if (upcomingDate.getYear() == 2000) {
+            return birthdayRepository.findByUpcoming(todayDate, upcomingDate);
+        } else {
+            upcomingDate = upcomingDate.withYear(2000);
+            LocalDate yearEnd = LocalDate.of(2000, Month.DECEMBER, 31);
+            LocalDate yearStart = LocalDate.of(2000, Month.JANUARY, 1);
+
+            List<Birthday> birthdaysUpcoming = birthdayRepository.findByUpcomingModifiedA(todayDate, yearEnd);
+            List<Birthday> listB = birthdayRepository.findByUpcomingModifiedB(upcomingDate, yearStart);
+            birthdaysUpcoming.addAll(listB);
+
+            return birthdaysUpcoming;
+        }
     }
 }
